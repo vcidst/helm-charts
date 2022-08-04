@@ -4,7 +4,7 @@
 To add this Helm chart repository to your Helm client:
 
 ```bash
-helm repo add jambonz https://jambonz.github.io/helm-charts/
+helm repo add verloop-jambonz https://shailendra.me/helm-charts/
 ```
 
 Having installed it, you can list its charts, of which there is just one:
@@ -12,7 +12,7 @@ Having installed it, you can list its charts, of which there is just one:
 ```bash
 $ helm search repo jambonz
 NAME           	CHART VERSION	APP VERSION	DESCRIPTION
-jambonz/jambonz	0.1.8        	0.7.4  	open source CPaaS for communication service pro...
+verloop/jambonz	0.1.8        	0.7.4  	open source CPaaS for communication service pro...
 ```
 
 ## Introduction
