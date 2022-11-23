@@ -61,7 +61,7 @@ spec:
             - {{ .Values.drachtio.homerId | quote }}
 {{- if .Values.apiban.apiKey }}
             - --blacklist-redis-address
-            - redis.{{ default .Release.Namespace .Values.global.db.namespace }}
+            - ${JAMBONES_REDIS_HOST}
             - --blacklist-redis-port
             - {{ .Values.redis.port | quote }}
             - --blacklist-refresh-secs
@@ -75,6 +75,11 @@ spec:
                 secretKeyRef:
                   name: jambonz-secrets
                   key: DRACHTIO_SECRET
+            - name: JAMBONES_REDIS_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: jambonz-secrets
+                  key: REDIS_HOST
             - name: SOFIA_SEARCH_DOMAINS
               value: "1"
             - name: SOFIA_SRES_NO_CACHE
@@ -124,7 +129,10 @@ spec:
             - name: JAMBONES_LOGLEVEL
               value: info
             - name: JAMBONES_REDIS_HOST
-              value: redis.{{ default .Release.Namespace .Values.global.db.namespace }}
+              valueFrom:
+                secretKeyRef:
+                  name: jambonz-secrets
+                  key: REDIS_HOST
             - name: JAMBONES_REDIS_PORT
               value: {{ .Values.redis.port | quote }}
             - name: JAMBONES_MYSQL_DATABASE
@@ -178,7 +186,10 @@ spec:
             - name: AVOID_UDH 
               value: "1"
             - name: JAMBONES_REDIS_HOST
-              value: redis.{{ default .Release.Namespace .Values.global.db.namespace }}
+              valueFrom:
+                secretKeyRef:
+                  name: jambonz-secrets
+                  key: REDIS_HOST
             - name: JAMBONES_REDIS_PORT
               value: {{ .Values.redis.port | quote }}            
             - name: JAMBONES_MYSQL_DATABASE

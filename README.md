@@ -95,6 +95,14 @@ helm install --namespace=jambonz \
 jambonz/jambonz
 ```
 
+Upgrading managed DB instances
+
+```bash
+helm list -A
+helm upgrade jambonz-1659537992 jambonz-helm-charts -f jambonz-helm-charts/values.yaml --namespace=jambonz 
+```
+
+
 Note that all of the above command line values are required variables.
 
 Once you have installed the helm chart for the first, it will take a bit for all components to be downloaded, installed and transition to the running state.  This is because the mysql database schema will be created and seeded with initial data, any many of the Pods will wait for the database to become available (via an initContainer) before starting their containers.

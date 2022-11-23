@@ -12,7 +12,7 @@ global:
       enabled: false
       clusterIssuer: 
   recordings:
-    enabled: false
+    enabled: true
   track:
     serviceProviderCalls: "0"
     accountCalls: "0"
@@ -23,7 +23,17 @@ db:
   # if true, create the db subchart
   enabled: true
   mysql: 
-    secret: amFtYm9uZXM=
+    host: 
+    database: jambones
+    user: jambonz-user
+    storage: 10Gi
+    # k8s secret
+    # secret should be base64 encoded
+    secret: 
+  redis:
+    # k8s secret, should be base64 encoded
+    host: 
+    port: "6379"
 monitoring: 
   # if true, create the monitoring subchart
   enabled: true 
