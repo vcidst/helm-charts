@@ -44,7 +44,7 @@ spec:
             - sh 
             - -c 
             - |
-              until mysql -u {{ .Values.mysql.user }} -D {{ .Values.mysql.database }} -h mysql.{{ default .Release.Namespace .Values.global.db.namespace }} -p${MYSQL_PASSWORD} --protocol=tcp -e "select count(*) from accounts";
+              until mysql -u {{ .Values.db.mysql.user }} -D {{ .Values.db.mysql.database }} -h {{ .Values.db.mysql.host }} -p${MYSQL_PASSWORD} --protocol=tcp -e "select count(*) from accounts";
               do 
                 sleep 5
               done

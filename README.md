@@ -99,7 +99,7 @@ Upgrading managed DB instances
 
 ```bash
 helm list -A
-helm upgrade jambonz-1659537992 jambonz-helm-charts -f jambonz-helm-charts/values.yaml --namespace=jambonz 
+helm upgrade jambonz-1659537992 jambonz-helm-charts -f jambonz-helm-charts/values.yaml --namespace=jambonz --set "db.mysql.host=10.249.96.3" --set "db.mysql.secret=N0gmQip3RjZKaUZDNFk=" --set "db.redis.host=ZGVmYXVsdDpYMktTREgyUnFkMjRAcmVkaXMtMS12bS5jLnZlcmxvb3AtZGV2LmludGVybmFs"
 ```
 
 

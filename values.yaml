@@ -7,7 +7,7 @@ global:
     namespace:
   kong:
     enabled: false
-    useHostnames: true
+    useHostnames: false
     tls:
       enabled: false
       clusterIssuer: 
@@ -39,7 +39,7 @@ monitoring:
   enabled: true 
 
 # (required) name of cloud provider: azure, aws, digitalocean, gcp, or none 
-cloud:
+cloud: gcp
 
 # set this to "1" if you are deploying on AWS and you are using IMDSv2
 awsUseIMDSv2:
@@ -128,29 +128,12 @@ freeswitch:
     - freeswitch
     - --codec-answer-generous
 
-# mysql configuration used by Node.js app that need to connect
-mysql: 
-  image: mysql:5.7
-  host: mysql 
-  database: jambones
-  user: jambones 
-  # used when the rtp is in StatefulSet mode (sbc.rtp.statefulset.enabled is true)
-  storage: 10Gi
-
-# redis configuration used by Node.js app that need to connect
-redis: 
-  image: redis:alpine
-  host: redis 
-  port: "6379"
-
 # configuration for jambonz-api-server
 api: 
   image: jambonz/api-server:0.7.7-13
   imagePullPolicy: IfNotPresent
   httpPort: "3000"
   replicas: 1
-  # (required) hostname for the jambonz port ingress
-  hostname:
   # defaults to http, if you have tls enabled change to https 
   # otherwise web to api connection will fail
   protocol:
@@ -160,9 +143,6 @@ webapp:
   image: jambonz/webapp:0.7.7-13
   imagePullPolicy: IfNotPresent
   replicas: 1
-  
-  # (required) hostname for the jambonz port ingress
-  hostname: 
 
 # 
 smpp:
