@@ -98,7 +98,12 @@ jambonz/jambonz
 Installing a managed DB instances, set the mysql host, secret and redis secret in values.yaml
 
 ```bash
+# installing
 helm install jambonz-helm-charts -f jambonz-helm-charts/values.yaml --namespace=jambonz --generate-name --create-namespace
+
+# upgrading
+helm list -A
+helm upgrade jambonz-helm-charts-1669872994 jambonz-helm-charts/ -f jambonz-helm-charts/values.yaml --namespace=jambonz
 ```
 
 
