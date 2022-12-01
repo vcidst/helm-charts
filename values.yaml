@@ -2,9 +2,9 @@ global:
   # if defined, create and/or reference db and monitoring services in the specified namespace;
   # otherwise they create and/or referenced them in whatever the .Release namespace is
   db:
-    namespace: 
+    namespace: db
   monitoring:
-    namespace:
+    namespace: monitoring
   kong:
     enabled: false
     useHostnames: false

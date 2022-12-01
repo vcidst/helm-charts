@@ -63,7 +63,7 @@ spec:
             - --blacklist-redis-address
             - ${JAMBONES_REDIS_HOST}
             - --blacklist-redis-port
-            - {{ .Values.redis.port | quote }}
+            - {{ .Values.db.redis.port | quote }}
             - --blacklist-refresh-secs
             - {{ .Values.apiban.refreshInterval | quote }}
             - --blacklist-redis-key
@@ -134,7 +134,7 @@ spec:
                   name: jambonz-secrets
                   key: REDIS_HOST
             - name: JAMBONES_REDIS_PORT
-              value: {{ .Values.redis.port | quote }}
+              value: {{ .Values.db.redis.port | quote }}
             - name: JAMBONES_MYSQL_DATABASE
               value: {{ .Values.db.mysql.database }}
             - name: JAMBONES_MYSQL_HOST
@@ -191,7 +191,7 @@ spec:
                   name: jambonz-secrets
                   key: REDIS_HOST
             - name: JAMBONES_REDIS_PORT
-              value: {{ .Values.redis.port | quote }}            
+              value: {{ .Values.db.redis.port | quote }}            
             - name: JAMBONES_MYSQL_DATABASE
               value: {{ .Values.db.mysql.database }}
             - name: JAMBONES_MYSQL_HOST

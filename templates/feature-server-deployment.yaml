@@ -176,7 +176,7 @@ spec:
                   name: jambonz-secrets
                   key: REDIS_HOST
             - name: JAMBONES_REDIS_PORT
-              value: {{ .Values.redis.port | quote }}
+              value: {{ .Values.db.redis.port | quote }}
             - name: JAMBONES_MYSQL_DATABASE
               value: {{ .Values.db.mysql.database }}
             - name: JAMBONES_MYSQL_HOST

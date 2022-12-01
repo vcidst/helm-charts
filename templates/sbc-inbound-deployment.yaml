@@ -77,7 +77,7 @@ spec:
                   name: jambonz-secrets
                   key: REDIS_HOST
             - name: JAMBONES_REDIS_PORT
-              value: {{ .Values.redis.port | quote }}
+              value: {{ .Values.db.redis.port | quote }}
             - name: ENABLE_METRICS
               value: {{ default "0" .Values.stats.enabled  | quote }}
             {{- if .Values.stats.enabled }}

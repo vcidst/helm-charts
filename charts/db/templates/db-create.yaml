@@ -17,11 +17,11 @@ spec:
           image: jambonz/db-create:0.7.7
           env:
             - name: JAMBONES_MYSQL_HOST
-              value: {{ .Values.db.mysql.host }}
+              value: {{ .Values.mysql.host }}
             - name: JAMBONES_MYSQL_DATABASE
-              value: {{ .Values.db.mysql.database }}
+              value: {{ .Values.mysql.database }}
             - name: JAMBONES_MYSQL_USER
-              value: {{ .Values.db.mysql.user }}
+              value: {{ .Values.mysql.user }}
             - name: JAMBONES_MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
