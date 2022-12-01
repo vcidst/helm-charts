@@ -73,9 +73,9 @@ sbc:
       label: voip-environment 
       value: rtp
     toleration: rtp
-    storageClassName:
+    storageClassName: jambonz-recordings
     # list of extra initContainers
-    extraInitContainers:
+    extraInitContainers: 
     # list of extra containers/sidecars
     extraContainers:
     # list of extra volumes

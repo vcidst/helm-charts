@@ -454,3 +454,10 @@ sbc:
     - emptyDir: {}
       name: cache
 ```
+
+
+## Changes in this fork
+
+Changelog,
+- This fork uses a managed MYSQL and Redis for workloads in the default namespace for core Jambonz services. 
+- I've also deleted the ingress routes since we use Jambonz APIs to provision everything and any debugging can be done by port forwarding specific services via kubectl
