@@ -11,6 +11,5 @@ spec:
     - name: homer-webapp
       port: 80
       targetPort: 80
-  type: NodePort
   selector:
     app: homer-webapp

@@ -11,5 +11,6 @@ spec:
     - name: "api-server"
       port:  {{ .Values.api.httpPort }}
       targetPort:  {{ .Values.api.httpPort }}
+  type: NodePort
   selector:
     app: api-server
