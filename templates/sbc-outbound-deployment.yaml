@@ -72,9 +72,12 @@ spec:
             - name: JAMBONES_TIME_SERIES_HOST 
               value: influxdb.{{ default .Release.Namespace .Values.global.monitoring.namespace }}
             - name: JAMBONES_REDIS_HOST
-              value: redis.{{ default .Release.Namespace .Values.global.db.namespace }}
+              valueFrom:
+                secretKeyRef:
+                  name: jambonz-secrets
+                  key: REDIS_HOST
             - name: JAMBONES_REDIS_PORT
-              value: {{ .Values.redis.port | quote }}
+              value: {{ .Values.db.redis.port | quote }}
             - name: ENABLE_METRICS
               value: {{ default "0" .Values.stats.enabled  | quote }}
             {{- if .Values.stats.enabled }}
@@ -90,11 +93,11 @@ spec:
               value:  {{ .Values.stats.sampleRate | quote }}
             {{- end }}
             - name: JAMBONES_MYSQL_DATABASE
-              value: {{ .Values.mysql.database }}
+              value: {{ .Values.db.mysql.database }}
             - name: JAMBONES_MYSQL_HOST
-              value: mysql.{{ default .Release.Namespace .Values.global.db.namespace }}
+              value: {{ .Values.db.mysql.host }}
             - name: JAMBONES_MYSQL_USER
-              value: {{ .Values.mysql.user }}
+              value: {{ .Values.db.mysql.user }}
             - name: JAMBONES_MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:

@@ -1,6 +1,5 @@
 grafana: 
   image: grafana/grafana-oss:8.4.3 
-  hostname:
   storage: 2Gi
 heplifyServer: 
   image: sipcapture/heplify-server:latest
@@ -10,7 +9,6 @@ influxdb:
   storage: 20Gi
 homer: 
   image: sipcapture/webapp:latest
-  hostname:
 postgres: 
   image: postgres:11-alpine
   storage: 30Gi 
@@ -18,7 +16,6 @@ telegraf:
   image: telegraf:1.19
 jaeger: 
   image: jaegertracing/all-in-one:1.32
-  hostname: 
 
 # Storage Class definition for the Stateful Sets
 storageClassName:

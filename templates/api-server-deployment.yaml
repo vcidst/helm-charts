@@ -27,7 +27,7 @@ spec:
             - sh 
             - -c 
             - |
-              until mysql -u {{ .Values.mysql.user }} -D {{ .Values.mysql.database }} -h mysql.{{ default .Release.Namespace .Values.global.db.namespace }} -p${MYSQL_PASSWORD} --protocol=tcp -e "select count(*) from accounts";
+              until mysql -u {{ .Values.db.mysql.user }} -D {{ .Values.db.mysql.database }} -h {{ .Values.db.mysql.host }} -p${MYSQL_PASSWORD} --protocol=tcp -e "select count(*) from accounts";
               do 
                 sleep 5
               done
@@ -77,15 +77,18 @@ spec:
               value:  {{ .Values.stats.sampleRate | quote }}
             {{- end }}
             - name: JAMBONES_REDIS_HOST
-              value: redis.{{ default .Release.Namespace .Values.global.db.namespace }}
+              valueFrom:
+                secretKeyRef:
+                  name: jambonz-secrets
+                  key: REDIS_HOST
             - name: JAMBONES_REDIS_PORT
-              value: {{ .Values.redis.port | quote }}
+              value: {{ .Values.db.redis.port | quote }}
             - name: JAMBONES_MYSQL_HOST
-              value: mysql.{{ default .Release.Namespace .Values.global.db.namespace }}
+              value: {{ .Values.db.mysql.host }}
             - name: JAMBONES_MYSQL_DATABASE
-              value: {{ .Values.mysql.database | quote }}
+              value: {{ .Values.db.mysql.database | quote }}
             - name: JAMBONES_MYSQL_USER
-              value: {{ .Values.mysql.user | quote }}
+              value: {{ .Values.db.mysql.user | quote }}
             - name: JAMBONES_MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:

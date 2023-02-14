@@ -2,12 +2,12 @@ global:
   # if defined, create and/or reference db and monitoring services in the specified namespace;
   # otherwise they create and/or referenced them in whatever the .Release namespace is
   db:
-    namespace: 
+    namespace: db
   monitoring:
-    namespace:
+    namespace: monitoring
   kong:
     enabled: false
-    useHostnames: true
+    useHostnames: false
     tls:
       enabled: false
       clusterIssuer: 
@@ -23,13 +23,23 @@ db:
   # if true, create the db subchart
   enabled: true
   mysql: 
-    secret: amFtYm9uZXM=
+    host: 
+    database: jambones
+    user: jambonz-user
+    storage: 10Gi
+    # k8s secret
+    # secret should be base64 encoded
+    secret: 
+  redis:
+    # k8s secret, should be base64 encoded
+    host: 
+    port: "6379"
 monitoring: 
   # if true, create the monitoring subchart
   enabled: true 
 
 # (required) name of cloud provider: azure, aws, digitalocean, gcp, or none 
-cloud:
+cloud: gcp
 
 # set this to "1" if you are deploying on AWS and you are using IMDSv2
 awsUseIMDSv2:
@@ -57,15 +67,15 @@ sbc:
       value: sip
     toleration: sip
     ssl:
-      enabled: false
+      enabled: true
   rtp: 
     nodeSelector: 
       label: voip-environment 
       value: rtp
     toleration: rtp
-    storageClassName:
+    storageClassName: jambonz-recordings
     # list of extra initContainers
-    extraInitContainers:
+    extraInitContainers: 
     # list of extra containers/sidecars
     extraContainers:
     # list of extra volumes
@@ -118,29 +128,13 @@ freeswitch:
     - freeswitch
     - --codec-answer-generous
 
-# mysql configuration used by Node.js app that need to connect
-mysql: 
-  image: mysql:5.7
-  host: mysql 
-  database: jambones
-  user: jambones 
-  # used when the rtp is in StatefulSet mode (sbc.rtp.statefulset.enabled is true)
-  storage: 10Gi
-
-# redis configuration used by Node.js app that need to connect
-redis: 
-  image: redis:alpine
-  host: redis 
-  port: "6379"
-
 # configuration for jambonz-api-server
 api: 
   image: jambonz/api-server:0.7.7-13
   imagePullPolicy: IfNotPresent
   httpPort: "3000"
   replicas: 1
-  # (required) hostname for the jambonz port ingress
-  hostname:
+  hostname: localhost:3000
   # defaults to http, if you have tls enabled change to https 
   # otherwise web to api connection will fail
   protocol:
@@ -150,9 +144,6 @@ webapp:
   image: jambonz/webapp:0.7.7-13
   imagePullPolicy: IfNotPresent
   replicas: 1
-  
-  # (required) hostname for the jambonz port ingress
-  hostname: 
 
 # 
 smpp:
@@ -198,8 +189,8 @@ featureServer:
 
 # sbc-sip configuration
 sbcSip: 
-  loglevel: info 
-  sofiaLoglevel: "3"
+  loglevel: error 
+  sofiaLoglevel: "0"
 
 # sidecar to wait for database up
 dbWaiter:
@@ -207,6 +198,7 @@ dbWaiter:
 
 # if you want to block bad sip actors, get an api key from apiban.org and put it below
 apiban: 
-  apiKey:
+  apiKey: 
   redisKey: "apiban:ips"
   refreshInterval: "3600"
+  foreverBlockRanges: "128.90.0.0/16,162.142.125.0/24,198.235.24.0/24,205.210.31.0/24"

@@ -21,10 +21,15 @@ spec:
             - name: APIBAN_REDIS_KEY
               value: {{ .Values.apiban.redisKey | quote }}
             - name: APIBAN_REDIS_SERVER
-              value: redis.{{ default .Release.Namespace .Values.global.db.namespace }}
+              valueFrom:
+                secretKeyRef:
+                  name: jambonz-secrets
+                  key: REDIS_HOST
             - name: APIBAN_REDIS_PORT
-              value: {{ .Values.redis.port | quote }}
+              value: {{ .Values.db.redis.port | quote }}
             - name: APIBAN_API_KEY
               value: {{ .Values.apiban.apiKey | quote }}
+            - name: APIBAN_FOREVER_BLOCK_RANGES
+              value: {{ .Values.apiban.foreverBlockRanges | quote }}
           restartPolicy: Never
 {{- end }} 

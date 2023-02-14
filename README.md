@@ -95,6 +95,18 @@ helm install --namespace=jambonz \
 jambonz/jambonz
 ```
 
+Installing a managed DB instances, set the mysql host, secret and redis secret in values.yaml
+
+```bash
+# installing
+helm install jambonz-helm-charts -f jambonz-helm-charts/values.yaml --namespace=jambonz --generate-name --create-namespace
+
+# upgrading
+helm list -A
+helm upgrade jambonz-helm-charts-1669872994 jambonz-helm-charts/ -f jambonz-helm-charts/values.yaml --namespace=jambonz
+```
+
+
 Note that all of the above command line values are required variables.
 
 Once you have installed the helm chart for the first, it will take a bit for all components to be downloaded, installed and transition to the running state.  This is because the mysql database schema will be created and seeded with initial data, any many of the Pods will wait for the database to become available (via an initContainer) before starting their containers.
@@ -447,3 +459,14 @@ sbc:
     - emptyDir: {}
       name: cache
 ```
+
+## Changes in this fork
+
+This fork is used by Verloop to provision a Jambonz Cluster on GKE
+
+Changelog,
+- Uses a managed MYSQL and Redis for workloads in the default namespace for core Jambonz services. 
+- Ingress routes to api-server, webapp, grafana, homer, etc are deleted for security purposes.
+- We make use of Jambonz API internally to provision any resources
+- Jambonz Webapp can be accessed by port-forwarding with Kubectl. Port forward api-server to localhost:3000 and webapp to localhost:3001
+- Homer Webapp, Grafana can also be accessed by port forwarding
