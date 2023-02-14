@@ -460,9 +460,13 @@ sbc:
       name: cache
 ```
 
-
 ## Changes in this fork
 
+This fork is used by Verloop to provision a Jambonz Cluster on GKE
+
 Changelog,
-- This fork uses a managed MYSQL and Redis for workloads in the default namespace for core Jambonz services. 
-- I've also deleted the ingress routes since we use Jambonz APIs to provision everything and any debugging can be done by port forwarding specific services via kubectl
+- Uses a managed MYSQL and Redis for workloads in the default namespace for core Jambonz services. 
+- Ingress routes to api-server, webapp, grafana, homer, etc are deleted for security purposes.
+- We make use of Jambonz API internally to provision any resources
+- Jambonz Webapp can be accessed by port-forwarding with Kubectl. Port forward api-server to localhost:3000 and webapp to localhost:3001
+- Homer Webapp, Grafana can also be accessed by port forwarding

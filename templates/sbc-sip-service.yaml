@@ -16,6 +16,12 @@ spec:
       port: 5060
       targetPort: 5060
       protocol: TCP
+    {{- if .Values.sbc.sip.ssl.enabled }}
+    - name: wss-tcp
+      port: 8443
+      targetPort: 8443
+      protocol: TCP
+    {{- end }}
   selector:
     app: jambonz-sbc-sip
   clusterIP: None

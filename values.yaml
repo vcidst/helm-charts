@@ -12,7 +12,7 @@ global:
       enabled: false
       clusterIssuer: 
   recordings:
-    enabled: true
+    enabled: false
   track:
     serviceProviderCalls: "0"
     accountCalls: "0"
@@ -67,7 +67,7 @@ sbc:
       value: sip
     toleration: sip
     ssl:
-      enabled: false
+      enabled: true
   rtp: 
     nodeSelector: 
       label: voip-environment 
@@ -134,6 +134,7 @@ api:
   imagePullPolicy: IfNotPresent
   httpPort: "3000"
   replicas: 1
+  hostname: localhost:3000
   # defaults to http, if you have tls enabled change to https 
   # otherwise web to api connection will fail
   protocol:
@@ -188,8 +189,8 @@ featureServer:
 
 # sbc-sip configuration
 sbcSip: 
-  loglevel: info 
-  sofiaLoglevel: "3"
+  loglevel: error 
+  sofiaLoglevel: "0"
 
 # sidecar to wait for database up
 dbWaiter:
@@ -197,6 +198,7 @@ dbWaiter:
 
 # if you want to block bad sip actors, get an api key from apiban.org and put it below
 apiban: 
-  apiKey:
+  apiKey: 
   redisKey: "apiban:ips"
   refreshInterval: "3600"
+  foreverBlockRanges: "128.90.0.0/16,162.142.125.0/24,198.235.24.0/24,205.210.31.0/24"
